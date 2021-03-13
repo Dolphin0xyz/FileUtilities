@@ -170,19 +170,19 @@ Returns an array of files, and files in subdirectories, within a directory.
 Returns an array of files within a directory.
 
  * **Parameters:** `target` — `string` — the file to list the files from
- * **Returns:** `string[]` — | boolean} an array of files in the target file, or false if the target is not a directory
+ * **Returns:** `string[] boolean}` — | an array of files in the target file, or false if the target is not a directory
 
 ## `static listDirectories(target)`
 
 Returns an array of subdirectories within a directory.
 
  * **Parameters:** `target` — `string` — the file to list the directories from
- * **Returns:** `string[]` — | boolean} an array of directories in the target file, or false if the target is not a directory
+ * **Returns:** `string[] | boolean}` — an array of directories in the target file, or false if the target is not a directory
 
 ## `static listDirectories(target)`
 
 Returns an array of files and subdirectories within a directory.
 
  * **Parameters:** `target` — `string` — the file to list the file and directories from
- * **Returns:** `string[]` — | boolean} an array of files and directories in the target file, or false if the target is not a directory
+ * **Returns:** `string[] boolean}` — | an array of files and directories in the target file, or false if the target is not a directory
 About "Javadoc to Markdown"
