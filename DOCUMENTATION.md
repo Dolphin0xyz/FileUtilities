@@ -1,34 +1,8 @@
 # Documentation
 
-## `export default class FileUtilities`
+## `class FileUtilities`
 
 The FileUtilities class has all of the features of the FileUtilities module.
-
-## `static unGZIP(target, destination)`
-
-Extracts a GZipped file.
-
- * **Parameters:**
-   * `target` — `string` — the filepath of the gzipped file
-   * `[destination]` — `string` — the filepath to extract the file to (optional), otherwise it will remove the last extension
- * **Returns:** `string` — the ungzipped data written to the file
-
-## `static GZIP(target)`
-
-GZips a file to file.extension.gz.
-
- * **Parameters:** `target` — `string` — the file to gzip
-
-## `static unGZIPURL(url, destination, connecttimeout, readtimeout)`
-
-Gets gzipped data from a url and decodes it to the destination.
-
- * **Parameters:**
-   * `url` — `string` — the url to get the gzipped data from
-   * `destination` — `string` — the file to write the data to
-   * `connecttimeout` — `number` — the connect timeout of the connection in ms
-   * `readtimeout` — `number` — the read timeout of the connection in ms
- * **Returns:** `string` — the ungzipped data written to the file
 
 ## `static renameFile(target, name)`
 
@@ -105,12 +79,6 @@ Copies a directory, any subdirectories, and any files from the target to the des
    * `destination` — `string` — the filepath to copy it to
    * `[replace]` — `boolean` — whether or not to repalce existing files and directories (optional)
 
-## `static ZIP(target)`
-
-Zips a file recursively to filepath.extension.zip.
-
- * **Parameters:** `target` — `string` — the file to zip
-
 ## `static exists(target)`
 
 Checks if the target file exists.
@@ -140,6 +108,45 @@ Deletes all files and directories in the target directory.
    * `target` — `string` — the directory to clear
    * `[onlyFiles]` — `boolean` — whether or not to leave directories (optional), default is false
 
+## `static getFileSize(target)`
+
+Returns the size of a file in bytes
+
+ * **Parameters:** `target` — `string` — the file to get the size of
+ * **Returns:** `number` — the size of the file in bytes
+
+## `static ZIP(target)`
+
+Zips a file recursively to filepath.extension.zip.
+
+ * **Parameters:** `target` — `string` — the file to zip
+
+## `static unGZIP(target, destination)`
+
+Extracts a GZipped file.
+
+ * **Parameters:**
+   * `target` — `string` — the filepath of the gzipped file
+   * `[destination]` — `string` — the filepath to extract the file to (optional), otherwise it will remove the last extension
+ * **Returns:** `string` — the ungzipped data written to the file
+
+## `static GZIP(target)`
+
+GZips a file to file.extension.gz.
+
+ * **Parameters:** `target` — `string` — the file to gzip
+
+## `static unGZIPURL(url, destination, connecttimeout, readtimeout)`
+
+Gets gzipped data from a url and decodes it to the destination.
+
+ * **Parameters:**
+   * `url` — `string` — the url to get the gzipped data from
+   * `destination` — `string` — the file to write the data to
+   * `connecttimeout` — `number` — the connect timeout of the connection in ms
+   * `readtimeout` — `number` — the read timeout of the connection in ms
+ * **Returns:** `string` — the ungzipped data written to the file
+
 ## `static urlToFile(url, destination, connecttimeout, readtimeout)`
 
 Gets data from a url and writes it to the destination.
@@ -151,38 +158,30 @@ Gets data from a url and writes it to the destination.
    * `readtimeout` — `number` — the read timeout of the connection in ms
  * **Returns:** `string` — the data written to the file
 
-## `static getFileSize(target)`
-
-Returns the size of a file in bytes
-
- * **Parameters:** `target` — `string` — the file to get the size of
- * **Returns:** `number` — the size of the file in bytes
-
 ## `static listFilesRecursive(target)`
 
 Returns an array of files, and files in subdirectories, within a directory.
 
  * **Parameters:** `target` — `string` — the file/directory to add to the list
- * **Returns:** `ArrayList` — Returns the list with the files added
+ * **Returns:** `string[] | boolean` — Returns the list with the files added, or false if the target is not a directory
 
 ## `static listFiles(target)`
 
 Returns an array of files within a directory.
 
  * **Parameters:** `target` — `string` — the file to list the files from
- * **Returns:** `string[] | boolean}` — an array of files in the target file, or false if the target is not a directory
+ * **Returns:** `string[] | boolean` — an array of files in the target file, or false if the target is not a directory
 
 ## `static listDirectories(target)`
 
 Returns an array of subdirectories within a directory.
 
  * **Parameters:** `target` — `string` — the file to list the directories from
- * **Returns:** `string[] | boolean}` — an array of directories in the target file, or false if the target is not a directory
+ * **Returns:** `string[] | boolean` — an array of directories in the target file, or false if the target is not a directory
 
-## `static listDirectories(target)`
+## `static listFileAndDirectories(target)`
 
 Returns an array of files and subdirectories within a directory.
 
  * **Parameters:** `target` — `string` — the file to list the file and directories from
- * **Returns:** `string[] | boolean}` — an array of files and directories in the target file, or false if the target is not a directory
-About "Javadoc to Markdown"
+ * **Returns:** `string[] | boolean` — an array of files and directories in the target file, or false if the target is not a directory
