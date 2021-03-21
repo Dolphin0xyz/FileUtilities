@@ -24,7 +24,7 @@ export default class FileUtilities {
    * Renames the file to the name, the file stays in the same directory.
    * If the destination does not exist new directories will be made.
    * @param {string} target - the filepath of the file to rename
-   * @param {string} name - the new name of the file
+   * @param {string} name - the new name of the file, not including the filepath
    * @returns {boolean} whether or not the rename was successful
    */
 
@@ -54,7 +54,7 @@ export default class FileUtilities {
    * Renames the directory to the name, the directory stays in the same directory.
    * If the destination does not exist new directories will be made.
    * @param {string} target - the filepath of the directory to rename
-   * @param {string} name - the filepath of the renamed directory
+   * @param {string} name - the filepath of the renamed directory, not including the filepath
    * @returns {boolean} whether or not the rename was successful
    */
 
@@ -109,7 +109,7 @@ export default class FileUtilities {
 
   /**
    * Deletes the target file/directory.
-   * @param {string} target - the file to delete
+   * @param {string} target - the filepath if the file/directory to delete
    * @returns {boolean} whether or not the delete was successful
    */
 
@@ -131,7 +131,7 @@ export default class FileUtilities {
   /**
    * Copies a file from the target to the destination.
    * @param {string} target - the filepath of the file to copy
-   * @param {string} destination - the filepath to copy it to
+   * @param {string} destination - the filepath to copy it to, including the name of the file
    * @param {boolean} [replace] - whether or not to repalce existing files (optional)
    */
 
@@ -153,7 +153,7 @@ export default class FileUtilities {
   /**
    * Copies a directory, any subdirectories, and any files from the target to the destination.
    * @param {string} target - the filepath of the directory to copy
-   * @param {string} destination - the filepath to copy it to
+   * @param {string} destination - the filepath to copy it to, including the name of the directory
    * @param {boolean} [replace] - whether or not to repalce existing files and directories (optional)
    */
 
@@ -189,7 +189,7 @@ export default class FileUtilities {
 
   /**
    * Checks if the target is a directory.
-   * @param {string} target - the file to check
+   * @param {string} target - the filepath to check
    * @returns {boolean} if the file is a directory
    */
 
@@ -201,7 +201,7 @@ export default class FileUtilities {
 
   /**
    * Checks if the target is a file.
-   * @param {string} target - the file to check
+   * @param {string} target - the filepath to check
    * @returns {boolean} if the file is a file
    */
 
@@ -213,7 +213,7 @@ export default class FileUtilities {
 
   /**
    * Deletes all files and directories in the target directory.
-   * @param {string} target - the directory to clear
+   * @param {string} target - the filepath of the directory to clear
    * @param {boolean} [onlyFiles] - whether or not to leave directories (optional), default is false
    */
 
@@ -237,7 +237,7 @@ export default class FileUtilities {
 
   /**
    * Returns the size of a file in bytes
-   * @param {string} target - the file to get the size of
+   * @param {string} target - the filepath of the file to get the size of
    * @returns {number} the size of the file in bytes
    */
 
@@ -248,8 +248,8 @@ export default class FileUtilities {
 
 
   /**
-   * Zips a file recursively to filepath.extension.zip.
-   * @param {string} target - the file to zip
+   * Zips a file recursively to filepath.zip.
+   * @param {string} target - the filepath of the file to zip
    */
   
   static ZIP(target) {
@@ -283,8 +283,8 @@ export default class FileUtilities {
   /**
    * Extracts a GZipped file.
    * @param {string} target - the filepath of the gzipped file
-   * @param {string} [destination] - the filepath to extract the file to (optional), otherwise it will remove the last extension
-   * @returns {string} the ungzipped data written to the file
+   * @param {string} [destination] - the filepath to extract the file to (optional), otherwise it will remove the last extension (usually .gz)
+   * @returns {string} the ungzipped data that has been written to the file
    */
 
   static unGZIP(target, destination) {
@@ -308,8 +308,8 @@ export default class FileUtilities {
   
 
   /**
-   * GZips a file to file.extension.gz.
-   * @param {string} target - the file to gzip
+   * GZips a file to filepath.gz.
+   * @param {string} target - the filepath of the file to gzip
    */
 
   static GZIP(target) {
@@ -333,7 +333,7 @@ export default class FileUtilities {
   /**
    * Gets gzipped data from a url and decodes it to the destination.
    * @param {string} url - the url to get the gzipped data from
-   * @param {string} destination - the file to write the data to
+   * @param {string} destination - the filepath to write the data to
    * @param {number} connecttimeout - the connect timeout of the connection in ms
    * @param {number} readtimeout - the read timeout of the connection in ms
    * @returns {string} the ungzipped data written to the file
@@ -363,7 +363,7 @@ export default class FileUtilities {
   /**
    * Gets  data from a url and writes it to the destination.
    * @param {string} url - the url to get the  data from
-   * @param {string} destination - the file to write the data to
+   * @param {string} destination - the filepath to write the data to
    * @param {number} connecttimeout - the connect timeout of the connection in ms
    * @param {number} readtimeout - the read timeout of the connection in ms
    * @returns {string} the data written to the file
@@ -393,8 +393,8 @@ export default class FileUtilities {
 
   /**
    * Returns an array of files, and files in subdirectories, within a directory.
-   * @param {string} target - the file/directory to add to the list
-   * @returns {string[] | boolean} Returns the list with the files added, or false if the target is not a directory
+   * @param {string} target - the directory to recursively list the files from
+   * @returns {string[] | boolean} an array of files in the target directory and its subdirectories, or false if the target is not a directory
    */
 
   static listFilesRecursive(target) {
@@ -415,7 +415,7 @@ export default class FileUtilities {
   /**
    * Returns an array of files within a directory.
    * @param {string} target - the file to list the files from
-   * @returns {string[] | boolean} an array of files in the target file, or false if the target is not a directory
+   * @returns {string[] | boolean} an array of files in the target directory, or false if the target is not a directory
    */
 
   static listFiles(target) {
@@ -434,7 +434,7 @@ export default class FileUtilities {
   /**
    * Returns an array of subdirectories within a directory.
    * @param {string} target - the file to list the directories from
-   * @returns {string[] | boolean} an array of directories in the target file, or false if the target is not a directory
+   * @returns {string[] | boolean} an array of directories in the target directory, or false if the target is not a directory
    */
 
   static listDirectories(target) {
@@ -453,7 +453,7 @@ export default class FileUtilities {
   /**
    * Returns an array of files and subdirectories within a directory.
    * @param {string} target - the file to list the file and directories from
-   * @returns {string[] | boolean} an array of files and directories in the target file, or false if the target is not a directory
+   * @returns {string[] | boolean} an array of files and directories in the target directory, or false if the target is not a directory
    */
 
   static listFileAndDirectories(target) {
