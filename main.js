@@ -23,9 +23,9 @@ export default class FileUtilities {
   /**
    * Renames the file to the name, the file stays in the same directory.
    * If the destination does not exist new directories will be made.
-   * @param {string} target - the filepath of the file to rename
-   * @param {string} name - the new name of the file, not including the filepath
-   * @returns {boolean} whether or not the rename was successful
+   * @param {String} target - the filepath of the file to rename
+   * @param {String} name - the new name of the file, not including the filepath
+   * @returns {Boolean} whether or not the rename was successful
    */
 
   static renameFile(target, name) {
@@ -37,9 +37,9 @@ export default class FileUtilities {
   /**
    * Moves the target file to the destination.
    * If the destination does not exist new directories will be made.
-   * @param {string} target - the filepath of the file to move
-   * @param {string} destination - the filepath of the moved file
-   * @returns {boolean} whether or not the move was successful
+   * @param {String} target - the filepath of the file to move
+   * @param {String} destination - the filepath of the moved file
+   * @returns {Boolean} whether or not the move was successful
    */
 
   static moveFile(target, destination, replace) {
@@ -53,9 +53,9 @@ export default class FileUtilities {
   /**
    * Renames the directory to the name, the directory stays in the same directory.
    * If the destination does not exist new directories will be made.
-   * @param {string} target - the filepath of the directory to rename
-   * @param {string} name - the filepath of the renamed directory, not including the filepath
-   * @returns {boolean} whether or not the rename was successful
+   * @param {String} target - the filepath of the directory to rename
+   * @param {String} name - the filepath of the renamed directory, not including the filepath
+   * @returns {Boolean} whether or not the rename was successful
    */
 
   static renameDirectory(target, name) {
@@ -67,9 +67,9 @@ export default class FileUtilities {
   /**
    * Renames/moves the target directory to the destination.
    * If the destination does not exist new directories will be made.
-   * @param {string} target - the filepath of the directory to move
-   * @param {string} destination - the filepath of the moved directory
-   * @returns {boolean} whether or not the move was successful
+   * @param {String} target - the filepath of the directory to move
+   * @param {String} destination - the filepath of the moved directory
+   * @returns {Boolean} whether or not the move was successful
    */
 
   static moveDirectory(target, destination) {
@@ -83,8 +83,8 @@ export default class FileUtilities {
   /**
    * Creates a new file at the destination.
    * If the destination does not exist new directories will be made.
-   * @param {string} destination - the filepath of the new file
-   * @returns {boolean} whether or not the file was successfully created
+   * @param {String} destination - the filepath of the new file
+   * @returns {Boolean} whether or not the file was successfully created
    */
 
   static newFile(destination) {
@@ -97,8 +97,8 @@ export default class FileUtilities {
   /**
    * Creates a new directory at the destination.
    * If the destination does not exist new directories will be made.
-   * @param {string} destination - the filepath of the new directory
-   * @returns {boolean} whether or not the directory was successfully created
+   * @param {String} destination - the filepath of the new directory
+   * @returns {Boolean} whether or not the directory was successfully created
    */
 
   static newDirectory(destination) {
@@ -109,8 +109,8 @@ export default class FileUtilities {
 
   /**
    * Deletes the target file/directory.
-   * @param {string} target - the filepath if the file/directory to delete
-   * @returns {boolean} whether or not the delete was successful
+   * @param {String} target - the filepath if the file/directory to delete
+   * @returns {Boolean} whether or not the delete was successful
    */
 
   static delete(target) {
@@ -126,13 +126,23 @@ export default class FileUtilities {
     }).start();
     return FileUtilities.exists(target);
   }
+  
+
+  /**
+   * Deletes the target file/directory when minecraft closes (when the VM terminates).
+   * @param {String} target the filepath of the file/directory to delete
+   */
+  static deleteOnExit(target) {
+    const f = new File(target);
+    f.deleteOnExit();
+  }
 
 
   /**
    * Copies a file from the target to the destination.
-   * @param {string} target - the filepath of the file to copy
-   * @param {string} destination - the filepath to copy it to, including the name of the file
-   * @param {boolean} [replace] - whether or not to repalce existing files (optional)
+   * @param {String} target - the filepath of the file to copy
+   * @param {String} destination - the filepath to copy it to, including the name of the file
+   * @param {Boolean} [replace] - whether or not to repalce existing files (optional)
    */
 
   static copyFile(target, destination, replace) {
@@ -152,9 +162,9 @@ export default class FileUtilities {
 
   /**
    * Copies a directory, any subdirectories, and any files from the target to the destination.
-   * @param {string} target - the filepath of the directory to copy
-   * @param {string} destination - the filepath to copy it to, including the name of the directory
-   * @param {boolean} [replace] - whether or not to repalce existing files and directories (optional)
+   * @param {String} target - the filepath of the directory to copy
+   * @param {String} destination - the filepath to copy it to, including the name of the directory
+   * @param {Boolean} [replace] - whether or not to repalce existing files and directories (optional)
    */
 
   static copyDirectory(target, destination, replace) {
@@ -176,45 +186,9 @@ export default class FileUtilities {
 
 
   /**
-   * Checks if the target file exists.
-   * @param {string} target - the filepath to check
-   * @returns {boolean} if the file exists
-   */
-
-  static exists(target) {
-    const f = new File(target);
-    return f.exists();
-  }
-
-
-  /**
-   * Checks if the target is a directory.
-   * @param {string} target - the filepath to check
-   * @returns {boolean} if the file is a directory
-   */
-
-  static isDirectory(target) {
-    const f = new File(target);
-    return f.isDirectory();
-  }
-
-
-  /**
-   * Checks if the target is a file.
-   * @param {string} target - the filepath to check
-   * @returns {boolean} if the file is a file
-   */
-
-  static isFile(target) {
-    const f = new File(target);
-    return f.isFile();
-  }
-
-
-  /**
    * Deletes all files and directories in the target directory.
-   * @param {string} target - the filepath of the directory to clear
-   * @param {boolean} [onlyFiles] - whether or not to leave directories (optional), default is false
+   * @param {String} target - the filepath of the directory to clear
+   * @param {Boolean} [onlyFiles] - whether or not to leave directories (optional), default is false
    */
 
   static clearDirectory(target, onlyFiles) {
@@ -236,20 +210,8 @@ export default class FileUtilities {
 
 
   /**
-   * Returns the size of a file in bytes
-   * @param {string} target - the filepath of the file to get the size of
-   * @returns {number} the size of the file in bytes
-   */
-
-  static getFileSize(target) {
-    const f = Paths.get(target);
-    return Files.size(f);
-  }
-
-
-  /**
    * Zips a file recursively to filepath.zip.
-   * @param {string} target - the filepath of the file to zip
+   * @param {String} target - the filepath of the file to zip
    */
   
   static ZIP(target) {
@@ -282,9 +244,9 @@ export default class FileUtilities {
 
   /**
    * Extracts a GZipped file.
-   * @param {string} target - the filepath of the gzipped file
-   * @param {string} [destination] - the filepath to extract the file to (optional), otherwise it will remove the last extension (usually .gz)
-   * @returns {string} the ungzipped data that has been written to the file
+   * @param {String} target - the filepath of the gzipped file
+   * @param {String} [destination] - the filepath to extract the file to (optional), otherwise it will remove the last extension (usually .gz)
+   * @returns {String} the ungzipped data that has been written to the file
    */
 
   static unGZIP(target, destination) {
@@ -309,7 +271,7 @@ export default class FileUtilities {
 
   /**
    * GZips a file to filepath.gz.
-   * @param {string} target - the filepath of the file to gzip
+   * @param {String} target - the filepath of the file to gzip
    */
 
   static GZIP(target) {
@@ -332,11 +294,11 @@ export default class FileUtilities {
 
   /**
    * Gets gzipped data from a url and decodes it to the destination.
-   * @param {string} url - the url to get the gzipped data from
-   * @param {string} destination - the filepath to write the data to
-   * @param {number} connecttimeout - the connect timeout of the connection in ms
-   * @param {number} readtimeout - the read timeout of the connection in ms
-   * @returns {string} the ungzipped data written to the file
+   * @param {String} url - the url to get the gzipped data from
+   * @param {String} destination - the filepath to write the data to
+   * @param {Number} connecttimeout - the connect timeout of the connection in ms
+   * @param {Number} readtimeout - the read timeout of the connection in ms
+   * @returns {String} the ungzipped data written to the file
    */
   
   static unGZIPURL(url, destination, connecttimeout, readtimeout) {
@@ -362,11 +324,11 @@ export default class FileUtilities {
 
   /**
    * Gets  data from a url and writes it to the destination.
-   * @param {string} url - the url to get the  data from
-   * @param {string} destination - the filepath to write the data to
-   * @param {number} connecttimeout - the connect timeout of the connection in ms
-   * @param {number} readtimeout - the read timeout of the connection in ms
-   * @returns {string} the data written to the file
+   * @param {String} url - the url to get the  data from
+   * @param {String} destination - the filepath to write the data to
+   * @param {Number} connecttimeout - the connect timeout of the connection in ms
+   * @param {Number} readtimeout - the read timeout of the connection in ms
+   * @returns {String} the data written to the file
    */
 
   static urlToFile(url, destination, connecttimeout, readtimeout) {
@@ -393,8 +355,8 @@ export default class FileUtilities {
 
   /**
    * Returns an array of files, and files in subdirectories, within a directory.
-   * @param {string} target - the directory to recursively list the files from
-   * @returns {string[] | boolean} an array of files in the target directory and its subdirectories, or false if the target is not a directory
+   * @param {String} target - the filepath of the directory to recursively list the files from
+   * @returns {String[] | Boolean} an array of files in the target directory and its subdirectories, or false if the target is not a directory
    */
 
   static listFilesRecursive(target) {
@@ -414,8 +376,8 @@ export default class FileUtilities {
 
   /**
    * Returns an array of files within a directory.
-   * @param {string} target - the file to list the files from
-   * @returns {string[] | boolean} an array of files in the target directory, or false if the target is not a directory
+   * @param {String} target - the filepath of the file to list the files from
+   * @returns {String[] | Boolean} an array of files in the target directory, or false if the target is not a directory
    */
 
   static listFiles(target) {
@@ -433,8 +395,8 @@ export default class FileUtilities {
 
   /**
    * Returns an array of subdirectories within a directory.
-   * @param {string} target - the file to list the directories from
-   * @returns {string[] | boolean} an array of directories in the target directory, or false if the target is not a directory
+   * @param {String} target - the filepath to list the directories from
+   * @returns {String[] | Boolean} an array of directories in the target directory, or false if the target is not a directory
    */
 
   static listDirectories(target) {
@@ -452,8 +414,8 @@ export default class FileUtilities {
 
   /**
    * Returns an array of files and subdirectories within a directory.
-   * @param {string} target - the file to list the file and directories from
-   * @returns {string[] | boolean} an array of files and directories in the target directory, or false if the target is not a directory
+   * @param {String} target - the filepath to list the file and directories from
+   * @returns {String[] | Boolean} an array of files and directories in the target directory, or false if the target is not a directory
    */
 
   static listFileAndDirectories(target) {
@@ -464,6 +426,148 @@ export default class FileUtilities {
       r.push(file.getAbsolutePath());
     });
     return r;
+  }
+
+
+  /**
+   * Checks if the target file exists.
+   * @param {String} target - the filepath to check
+   * @returns {Boolean} whether or not the file exists
+   */
+
+  static exists(target) {
+    const f = new File(target);
+    return f.exists();
+  }
+
+
+  /**
+   * Checks if the target is a directory.
+   * @param {String} target - the filepath to check
+   * @returns {Boolean} whether or not the file is a directory
+   */
+
+  static isDirectory(target) {
+    const f = new File(target);
+    return f.isDirectory();
+  }
+
+
+  /**
+   * Checks if the target is a file.
+   * @param {String} target - the filepath to check
+   * @returns {Boolean} whether or not the file is a file
+   */
+
+  static isFile(target) {
+    const f = new File(target);
+    return f.isFile();
+  }
+
+  /**
+   * Checks if the target is hiden.
+   * @param {String} target - the filepath to check
+   * @returns {Boolean} whether or not the file is hidd
+   */
+  static isHidden(target) {
+    const f = new File(target)
+    return f.isHidden();
+  }
+
+
+  /**
+   * Tests if the file is writeable.
+   * @param {String} target - the filepath of the file to test
+   * @returns {Boolean} whether or not the file is writeable
+   */
+  static canWrite(target) {
+    const f = new File(target);
+    return f.canWrite();
+  }
+
+
+  /**
+   * Tests if the file is readable.
+   * @param {String} target - the filepath of the file to test
+   * @returns {Boolean} whether or not the file is readable
+   */
+  static canRead(target) {
+    const f = new File(target);
+    return f.canRead();
+  }
+
+
+  /**
+   * Tests if the file is executable.
+   * @param {String} target - the filepath of the file to test
+   * @returns {Boolean} whether or not the file is executable
+   */
+  static canExcecute(target) {
+    const f = new File(target);
+    return f.canExecute();
+  }
+  
+  
+  /**
+   * Returns a map of the BasicFileAttributes. See https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/BasicFileAttributes.html for a list of the keys and what objects are returned.
+   * @param {String} target - the file to get the attributes from
+   * @returns {Map<String, Object>} a map of the file attributes, the key is the attribute name and the value is the attribute value
+   */
+   
+  static getFileAttributes(target) {
+    const f = Paths.get(target);
+    return Files.readAttributes(f, "*");
+  }
+  
+
+  /**
+   * Returns the size of a file in bytes
+   * @param {String} target - the filepath of the file to get the size of
+   * @returns {Number} the size of the file in bytes
+   */
+
+  static getFileSize(target) {
+    const f = Paths.get(target);
+    return Files.size(f);
+  }
+  
+  
+  /**
+   * Returns the time the file or directory was last modified.
+   * @param {String} target - the filepath of the file to get the time from
+   * @returns {Date} a date object of the time the file or directory was last modified
+   */
+  
+  static getLastModifiedTime(target) {
+    const attr = FileUtilities.getFileAttributes(target);
+    const t = attr.get("lastModifiedTime");
+    return new Date(t.toMillis());
+  }
+  
+  
+  /**
+   * Returns the time the file or directory was last acessed.
+   * @param {String} target - the filepath of the file to get the time from
+   * @returns {Date} a date object of the time the file or directory was last acessed
+   */
+  
+  static getLastAcessTime(target) {
+    const attr = FileUtilities.getFileAttributes(target);
+    const t = attr.get("lastAcessTime");
+    return new Date(t.toMillis());
+  }
+  
+  
+  /**
+   * Returns the time the file or directory was created.
+   * @param {String} target - the filepath of the file to get the time from
+   * @returns {Date} a date object of the time the file or directory was created
+   */
+  
+  static getCreationTime(target) {
+    const attr = FileUtilities.getFileAttributes(target);
+    const t = attr.get("creationTime");
+    return new Date(t.toMillis());
   }
 }
 
