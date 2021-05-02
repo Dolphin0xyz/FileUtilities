@@ -1,3 +1,5 @@
+/// <reference types="../CTAutocomplete" />
+/// <reference lib="es2015" />
 // import FileUtilities from "..FileUtilities/main";
 
 const GZIPInputStream = Java.type("java.util.zip.GZIPInputStream");
@@ -14,6 +16,7 @@ const Files = Java.type("java.nio.file.Files");
 const Paths = Java.type("java.nio.file.Paths")
 const StandardCopyOption = Java.type("java.nio.file.StandardCopyOption");
 const JavaArrayList = Java.type("java.util.ArrayList");
+const FileTime = Java.type("java.nio.file.attribute.FileTime");
 
 /**
  * The FileUtilities class has all of the features of the FileUtilities module.
@@ -356,7 +359,7 @@ export default class FileUtilities {
   /**
    * Returns an array of files, and files in subdirectories, within a directory.
    * @param {String} target - the filepath of the directory to recursively list the files from
-   * @returns {String[] | Boolean} an array of files in the target directory and its subdirectories, or false if the target is not a directory
+   * @returns {(String[] | Boolean)} an array of files in the target directory and its subdirectories, or false if the target is not a directory
    */
 
   static listFilesRecursive(target) {
@@ -377,7 +380,7 @@ export default class FileUtilities {
   /**
    * Returns an array of files within a directory.
    * @param {String} target - the filepath of the file to list the files from
-   * @returns {String[] | Boolean} an array of files in the target directory, or false if the target is not a directory
+   * @returns {(String[] | Boolean)} an array of files in the target directory, or false if the target is not a directory
    */
 
   static listFiles(target) {
@@ -396,7 +399,7 @@ export default class FileUtilities {
   /**
    * Returns an array of subdirectories within a directory.
    * @param {String} target - the filepath to list the directories from
-   * @returns {String[] | Boolean} an array of directories in the target directory, or false if the target is not a directory
+   * @returns {(String[] | Boolean)} an array of directories in the target directory, or false if the target is not a directory
    */
 
   static listDirectories(target) {
@@ -415,7 +418,7 @@ export default class FileUtilities {
   /**
    * Returns an array of files and subdirectories within a directory.
    * @param {String} target - the filepath to list the file and directories from
-   * @returns {String[] | Boolean} an array of files and directories in the target directory, or false if the target is not a directory
+   * @returns {(String[] | Boolean)} an array of files and directories in the target directory, or false if the target is not a directory
    */
 
   static listFileAndDirectories(target) {
@@ -465,9 +468,9 @@ export default class FileUtilities {
   }
 
   /**
-   * Checks if the target is hiden.
+   * Checks if the target is hidden.
    * @param {String} target - the filepath to check
-   * @returns {Boolean} whether or not the file is hidd
+   * @returns {Boolean} whether or not the file is hidden
    */
   static isHidden(target) {
     const f = new File(target)
@@ -487,6 +490,20 @@ export default class FileUtilities {
 
 
   /**
+   * Sets a file's write permission for the owner or everbody.
+   * @param {String} target - the filepath of the file to set writeable
+   * @param {Boolean} writeable - whether to set it writeable or not
+   * @param {Boolean} [ownerOnly] - owner's permission or everyone's permission (defaults to false)
+   * @returns {Boolean} whether or not the operation suceeds
+   */
+  static setWriteable(target, writeable, ownerOnly) {
+    const f = new File(target);
+    let ownerOnly = ownerOnly ?? false;
+    return f.setWritable(writeable, ownerOnly);
+  }
+
+
+  /**
    * Tests if the file is readable.
    * @param {String} target - the filepath of the file to test
    * @returns {Boolean} whether or not the file is readable
@@ -498,6 +515,20 @@ export default class FileUtilities {
 
 
   /**
+   * Sets a file's read permission for the owner or everbody.
+   * @param {String} target - the filepath of the file to set readable
+   * @param {Boolean} readable - whether to set it readable or not
+   * @param {Boolean} [ownerOnly] - owner's permission or everyone's permission (defaults to false)
+   * @returns {Boolean} whether or not the operation suceeds
+   */
+  static setReadable(target, readable, ownerOnly) {
+    const f = new File(target);
+    let ownerOnly = ownerOnly ?? false;
+    return f.setReadable(readable, ownerOnly);
+  }
+
+
+  /**
    * Tests if the file is executable.
    * @param {String} target - the filepath of the file to test
    * @returns {Boolean} whether or not the file is executable
@@ -505,6 +536,20 @@ export default class FileUtilities {
   static canExcecute(target) {
     const f = new File(target);
     return f.canExecute();
+  }
+
+
+  /**
+   * Sets a file's execute permission for the owner or everbody.
+   * @param {String} target - the filepath of the file to set executable
+   * @param {Boolean} executable - whether to set it executable or not
+   * @param {Boolean} [ownerOnly] - owner's permission or everyone's permission (defaults to false)
+   * @returns {Boolean} whether or not the operation suceeds
+   */
+  static setExecutable(target, executable, ownerOnly) {
+    const f = new File(target);
+    let ownerOnly = ownerOnly ?? false;
+    return f.setExecutable(executable, ownerOnly);
   }
   
   
@@ -518,6 +563,19 @@ export default class FileUtilities {
     const f = Paths.get(target);
     return Files.readAttributes(f, "*");
   }
+
+
+  /**
+   * Sets the BasicFileAttributes. See https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/BasicFileAttributes.html for a list of the attributes and objects their values are.
+   * @param {String} target - the filepath of the file to set an attribute of
+   * @param {String} attribute - the attribute name in camelCase
+   * @param value - the value to set the attributes
+   */
+  static setFileAttributes(target, attribute, value) {
+    const f = Paths.get(target);
+    const attr = "basic:" + attribute;
+    Files.setAttribute(f, attr, value);
+  }
   
 
   /**
@@ -530,7 +588,17 @@ export default class FileUtilities {
     const f = Paths.get(target);
     return Files.size(f);
   }
-  
+
+  /**
+   * Checks if a file is a symbolic link.
+   * @param {String} target - the filepath of the file to check
+   * @returns {Boolean} whether or not the file is a symbolic link
+   */
+  static isSymbolicLink(target) {
+    const attr = FileUtilities.getFileAttributes(target);
+    return attr.get("isSymbolicLink");
+  }
+
   
   /**
    * Returns the time the file or directory was last modified.
@@ -543,18 +611,41 @@ export default class FileUtilities {
     const t = attr.get("lastModifiedTime");
     return new Date(t.toMillis());
   }
-  
+
+
+  /**
+   * Sets a file's last modified time.
+   * @param {String} target - the filepath of the file to set the time
+   * @param {Number} time the time to set last modified (number of milliseconds since UNIX epoch)
+   */
+  static setLastModifiedTime(target, time) {
+    const f = Paths.get(target);
+    const t = FileTime.fromMillis(time);
+    Files.setAttribute(f, "basic:lastModifiedTime", t);
+  }
   
   /**
-   * Returns the time the file or directory was last acessed.
+   * Returns the time the file or directory was last accessed.
    * @param {String} target - the filepath of the file to get the time from
-   * @returns {Date} a date object of the time the file or directory was last acessed
+   * @returns {Date} a date object of the time the file or directory was last accessed
    */
   
-  static getLastAcessTime(target) {
+  static getLastAccessTime(target) {
     const attr = FileUtilities.getFileAttributes(target);
-    const t = attr.get("lastAcessTime");
+    const t = attr.get("lastAccessTime");
     return new Date(t.toMillis());
+  }
+
+
+  /**
+   * Sets a file's last accessed time.
+   * @param {String} target - the filepath of the file to set the time
+   * @param {Number} time the time to set last accessed (number of milliseconds since UNIX epoch)
+   */
+  static setLastAccessTime(target, time) {
+    const f = Paths.get(target);
+    const t = FileTime.fromMillis(time);
+    Files.setAttribute(f, "basic:lastAcessTime", t);
   }
   
   
@@ -568,6 +659,18 @@ export default class FileUtilities {
     const attr = FileUtilities.getFileAttributes(target);
     const t = attr.get("creationTime");
     return new Date(t.toMillis());
+  }
+
+
+  /**
+   * Sets a file's creation time.
+   * @param {String} target - the filepath of the file to set the time
+   * @param {Number} time the time to set creation (number of milliseconds since UNIX epoch)
+   */
+  static setCreatiomTime(target, time) {
+    const f = Paths.get(target);
+    const t = FileTime.fromMillis(time);
+    Files.setAttribute(f, "basic:creationTime", t);
   }
 }
 
