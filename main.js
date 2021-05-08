@@ -145,7 +145,7 @@ export default class FileUtilities {
    * Copies a file from the target to the destination.
    * @param {String} target - the filepath of the file to copy
    * @param {String} destination - the filepath to copy it to, including the name of the file
-   * @param {Boolean} [replace] - whether or not to repalce existing files (optional)
+   * @param {Boolean} [replace] - whether or not to repalce existing files (defaults to false)
    */
 
   static copyFile(target, destination, replace) {
@@ -167,7 +167,7 @@ export default class FileUtilities {
    * Copies a directory, any subdirectories, and any files from the target to the destination.
    * @param {String} target - the filepath of the directory to copy
    * @param {String} destination - the filepath to copy it to, including the name of the directory
-   * @param {Boolean} [replace] - whether or not to repalce existing files and directories (optional)
+   * @param {Boolean} [replace] - whether or not to repalce existing files and directories (defaults to false)
    */
 
   static copyDirectory(target, destination, replace) {
@@ -191,7 +191,7 @@ export default class FileUtilities {
   /**
    * Deletes all files and directories in the target directory.
    * @param {String} target - the filepath of the directory to clear
-   * @param {Boolean} [onlyFiles] - whether or not to leave directories (optional), default is false
+   * @param {Boolean} [onlyFiles] - whether or not to leave directories (default to false)
    */
 
   static clearDirectory(target, onlyFiles) {
@@ -248,7 +248,7 @@ export default class FileUtilities {
   /**
    * Extracts a GZipped file.
    * @param {String} target - the filepath of the gzipped file
-   * @param {String} [destination] - the filepath to extract the file to (optional), otherwise it will remove the last extension (usually .gz)
+   * @param {String} [destination] - the filepath to extract the file to (by deafult it will remove the last extension (usually .gz))
    * @returns {String} the ungzipped data that has been written to the file
    */
 

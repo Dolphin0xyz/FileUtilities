@@ -78,7 +78,7 @@ Copies a file from the target to the destination.
  * **Parameters:**
    * `target` — `String`— the filepath of the file to copy
    * `destination` — `String`— the filepath to copy it to, including the name of the file
-   * `[replace]` — `Boolean`— whether or not to repalce existing files (optional)
+   * `[replace]` — `Boolean`— whether or not to repalce existing files (deafults to false)
 
 ## `static copyDirectory(target, destination, replace)`
 
@@ -87,7 +87,7 @@ Copies a directory, any subdirectories, and any files from the target to the des
  * **Parameters:**
    * `target` — `String`— the filepath of the directory to copy
    * `destination` — `String`— the filepath to copy it to, including the name of the directory
-   * `[replace]` — `Boolean`— whether or not to repalce existing files and directories (optional)
+   * `[replace]` — `Boolean`— whether or not to repalce existing files and directories (defaults to false)
 
 ## `static clearDirectory(target, onlyFiles)`
 
@@ -95,8 +95,7 @@ Deletes all files and directories in the target directory.
 
  * **Parameters:**
    * `target` — `String`— the filepath of the directory to clear
-   * `[onlyFiles]` — `Boolean`— whether or not to leave directories (optional), default is false
-
+   * `[onlyFiles]` — `Boolean`— whether or not to leave directories (defaults to false)
 ## `static ZIP(target)`
 
 Zips a file recursively to filepath.zip.
@@ -110,7 +109,7 @@ Extracts a GZipped file.
 
  * **Parameters:**
    * `target` — `String`— the filepath of the gzipped file
-   * `[destination]` — `String`— the filepath to extract the file to (optional), otherwise it will remove the last extension (usually .gz)
+   * `[destination]` — `String`— the filepath to extract the file to (by default it will remove the last extension (usually .gz))remove the last extension (usually .gz)
  * **Returns:** `String` — the ungzipped data that has been written to the file
 
 ## `static GZIP(target)`
