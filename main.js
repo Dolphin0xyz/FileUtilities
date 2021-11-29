@@ -17,6 +17,11 @@ const Paths = Java.type("java.nio.file.Paths")
 const StandardCopyOption = Java.type("java.nio.file.StandardCopyOption");
 const JavaArrayList = Java.type("java.util.ArrayList");
 const FileTime = Java.type("java.nio.file.attribute.FileTime");
+const ByteArrayInputStream = Java.type("java.io.ByteArrayInputStream");
+const ByteArrayOutputStream = Java.type("java.io.ByteArrayOutputStream");
+const BufferedReader = Java.type("java.io.BufferedReader");
+const InputStreamReader = Java.type("java.io.InputStreamReader");
+const JavaString = Java.type("java.lang.String");
 
 /**
  * The FileUtilities class has all of the features of the FileUtilities module.
@@ -243,10 +248,49 @@ export default class FileUtilities {
       ZIPOS.close();
     }).start();
   }
+  
+
+  /**
+   * Gzips a file to filepath.gz.
+   * @param {String} target - the filepath of the file to gzip
+   */
+
+  static GZIP(target) {
+    new Thread(() => {
+      const destination = target + ".gz"
+      const FileIS = new FileInputStream(target);
+      const FilePS = new PrintStream(destination);
+      const GZIPOS = new GZIPOutputStream(FilePS);
+      let buf = new Packages.java.lang.reflect.Array.newInstance(Byte.TYPE, 65536);
+      let len;
+      while ((len = FileIS.read(buf)) > 0) {
+        GZIPOS.write(buf, 0, len);
+      }
+      FileIS.close();
+      GZIPOS.close();
+      FilePS.close();
+    }).start();
+  }
 
 
   /**
-   * Extracts a GZipped file.
+   * Gzips a string
+   * @param {String} string - the string to compress
+   * @returns {String} the compressed string
+   */
+  static GZIPString(string) {
+    const StringOS = new ByteArrayOutputStream();
+    const GZIPOS = new GZIPOutputStream(StringOS);
+    GZIPOS.write(new JavaString(string).getBytes());
+    let outString = StringOS.toString();
+    GZIPOS.close();
+    StringOS.close();
+    return outString;
+  }
+
+
+  /**
+   * Extracts a gzipped file.
    * @param {String} target - the filepath of the gzipped file
    * @param {String} [destination] - the filepath to extract the file to (by deafult it will remove the last extension (usually .gz))
    * @returns {String} the ungzipped data that has been written to the file
@@ -270,28 +314,26 @@ export default class FileUtilities {
     }).start();
     return FileLib.read(destination);
   }
-  
+
 
   /**
-   * GZips a file to filepath.gz.
-   * @param {String} target - the filepath of the file to gzip
+   * Decompresses a gzipped string
+   * @param {String} string - the string to decompress
+   * @returns {String} the ungzipped string
    */
-
-  static GZIP(target) {
-    new Thread(() => {
-      const destination = target + ".gz"
-      const FileIS = new FileInputStream(target);
-      const FilePS = new PrintStream(destination);
-      const GZIPOS = new GZIPOutputStream(FilePS);
-      let buf = new Packages.java.lang.reflect.Array.newInstance(Byte.TYPE, 65536);
-      let len;
-      while ((len = FileIS.read(buf)) > 0) {
-        GZIPOS.write(buf, 0, len);
-      }
-      FileIS.close();
-      GZIPOS.close();
-      FilePS.close();
-    }).start();
+  static unGZIPString(string) {
+    const StringIS = new ByteArrayInputStream(new JavaString(string).getBytes());
+    const GZIPIS = new GZIPInputStream(StringIS);
+    const ISReader = new InputStreamReader(GZIPIS);
+    const BReader = new BufferedReader(ISReader);
+    let outString = "";
+    let line;
+    GZIPIS.close();
+    StringIS.close();
+    while ((line = BReader.readLine()) !== null) {
+      outString += line;
+    }
+    return outString;
   }
 
 
