@@ -44,14 +44,16 @@ Renames/moves the target directory to the destination. If the destination does n
 
 Creates a new file at the destination. If the destination does not exist new directories will be made.
 
- * **Parameters:** `destination` — `String` — the filepath of the new file
+ * **Parameters:**
+   * `destination` — `String` — the filepath of the new file
  * **Returns:** `Boolean` — whether or not the file was successfully created
 
 ## `static newDirectory(destination)`
 
 Creates a new directory at the destination. If the destination does not exist new directories will be made.
 
- * **Parameters:** `destination` — `String` — the filepath of the new directory
+ * **Parameters:** 
+   * `destination` — `String` — the filepath of the new directory
  * **Returns:** `Boolean` — whether or not the directory was successfully created
 
 ## `static delete(target)`
@@ -59,7 +61,7 @@ Creates a new directory at the destination. If the destination does not exist ne
 Deletes the target file/directory.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath if the file/directory to delete
+   * `target` — `String` — the filepath if the file/directory to delete
  * **Returns:** `Boolean` — whether or not the delete was successful
 
 ## `static deleteOnExit(target)`
@@ -93,28 +95,28 @@ Deletes all files and directories in the target directory.
 
  * **Parameters:**
    * `target` — `String` — the filepath of the directory to clear
-   * `[onlyFiles]` — `Boolean` — whether or not to leave directories (default to false)
+   * `[onlyFiles]` — `Boolean` — whether or not to leave directories (defaults to false)
 
 ## `static ZIP(target)`
 
 Zips a file recursively to filepath.zip.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath of the file to zip
+   * `target` — `String` — the filepath of the file to zip
 
 ## `static GZIP(target)`
 
 Gzips a file to filepath.gz.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath of the file to gzip
+   * `target` — `String` — the filepath of the file to gzip
 
 ## `static GZIPString(string)`
 
 Gzips a string
 
  * **Parameters:** 
-   *`string` — `String` — the string to compress
+   * `string` — `String` — the string to compress
  * **Returns:** `String` — the compressed string
 
 ## `static unGZIP(target, destination)`
@@ -123,7 +125,7 @@ Extracts a gzipped file.
 
  * **Parameters:**
    * `target` — `String` — the filepath of the gzipped file
-   * `[destination]` — `String` — the filepath to extract the file to (by deafult it will remove the last extension (usually .gz))
+   * `[destination]` — `String` — the filepath to extract the file to (by default it will remove the last extension (usually .gz))
  * **Returns:** `String` — the ungzipped data that has been written to the file
 
 ## `static unGZIPString(string)`
@@ -131,7 +133,7 @@ Extracts a gzipped file.
 Decompresses a gzipped string
 
  * **Parameters:** 
-   *`string` — `String` — the string to decompress
+   * `string` — `String` — the string to decompress
  * **Returns:** `String` — the ungzipped string
 
 ## `static unGZIPURL(url, destination, connecttimeout, readtimeout)`
@@ -161,7 +163,7 @@ Gets data from a url and writes it to the destination.
 Returns an array of files, and files in subdirectories, within a directory.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath of the directory to recursively list the files from
+   * `target` — `String` — the filepath of the directory to recursively list the files from
  * **Returns:** `(String[] | Boolean)` — an array of files in the target directory and its subdirectories, or false if the target is not a directory
 
 ## `static listFiles(target)`
@@ -185,7 +187,7 @@ Returns an array of subdirectories within a directory.
 Returns an array of files and subdirectories within a directory.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath to list the file and directories from
+   * `target` — `String` — the filepath to list the file and directories from
  * **Returns:** `(String[] | Boolean)` — an array of files and directories in the target directory, or false if the target is not a directory
 
 ## `static exists(target)`
@@ -193,7 +195,7 @@ Returns an array of files and subdirectories within a directory.
 Checks if the target file exists.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath to check
+   * `target` — `String` — the filepath to check
  * **Returns:** `Boolean` — whether or not the file exists
 
 ## `static isDirectory(target)`
@@ -201,7 +203,7 @@ Checks if the target file exists.
 Checks if the target is a directory.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath to check
+   * `target` — `String` — the filepath to check
  * **Returns:** `Boolean` — whether or not the file is a directory
 
 ## `static isFile(target)`
@@ -225,7 +227,7 @@ Checks if the target is hidden.
 Tests if the file is writeable.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath of the file to test
+   * `target` — `String` — the filepath of the file to test
  * **Returns:** `Boolean` — whether or not the file is writeable
 
 ## `static setWriteable(target, writeable, ownerOnly)`
@@ -243,7 +245,7 @@ Sets a file's write permission for the owner or everbody.
 Tests if the file is readable.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath of the file to test
+   * `target` — `String` — the filepath of the file to test
  * **Returns:** `Boolean` — whether or not the file is readable
 
 ## `static setReadable(target, readable, ownerOnly)`
@@ -279,7 +281,7 @@ Sets a file's execute permission for the owner or everbody.
 Returns a map of the BasicFileAttributes. See https://docs.oracle.com/javase/8/docs/api/java/nio/file/attribute/BasicFileAttributes.html for a list of the keys and what objects are returned.
 
  * **Parameters:** 
-   *`target` — `String` — the file to get the attributes from
+   * `target` — `String` — the file to get the attributes from
  * **Returns:** `Map<String, Object>` — a map of the file attributes, the key is the attribute name and the value is the attribute value
 
 ## `static setFileAttributes(target, attribute, value)`
@@ -328,7 +330,7 @@ Sets a file's last modified time.
 Returns the time the file or directory was last accessed.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath of the file to get the time from
+   * `target` — `String` — the filepath of the file to get the time from
  * **Returns:** `Date` — a date object of the time the file or directory was last accessed
 
 ## `static setLastAccessTime(target, time)`
@@ -344,7 +346,7 @@ Sets a file's last accessed time.
 Returns the time the file or directory was created.
 
  * **Parameters:** 
-   *`target` — `String` — the filepath of the file to get the time from
+   * `target` — `String` — the filepath of the file to get the time from
  * **Returns:** `Date` — a date object of the time the file or directory was created
 
 ## `static setCreatiomTime(target, time)`
