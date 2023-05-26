@@ -1,7 +1,7 @@
 {
     "name": "FileUtilities",
     "creator": "Dolphin0xyz",
-    "version": "2.6.0",
+    "version": "2.7.0",
     "description": "Utilities for files",
     "isRequired": true,
     "$schema": "../CTAutocomplete/schema.json"
