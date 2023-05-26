@@ -41,7 +41,6 @@ export default class FileUtilities {
     return FileUtilities.moveFile(target, destination);
   }
 
-
   /**
    * Moves the target file to the destination.
    * If the destination does not exist new directories will be made.
@@ -463,7 +462,7 @@ export default class FileUtilities {
    * @returns {(String[] | Boolean)} an array of files and directories in the target directory, or false if the target is not a directory
    */
 
-  static listFileAndDirectories(target) {
+  static listFilesAndDirectories(target) {
     const f = new File(target);
     if (!f.isDirectory()) return false;
     const r = [];
@@ -703,7 +702,6 @@ export default class FileUtilities {
     return new Date(t.toMillis());
   }
 
-
   /**
    * Sets a file's creation time.
    * @param {String} target - the filepath of the file to set the time
@@ -713,6 +711,29 @@ export default class FileUtilities {
     const f = Paths.get(target);
     const t = FileTime.fromMillis(time);
     Files.setAttribute(f, "basic:creationTime", t);
+  }
+
+  /**
+   * Gets the folder that a file is in.
+   * @param {String} target - the filepath of the file to get the parent folder of
+   * @param {Boolean} [path] - whether to return the name (false) or full path (true) (defaults to false)
+   * @returns {String} the name of the parent folder
+   */
+
+  static getParentFolder(target, path) {
+    const parent = new File(new File(target).getParent())
+    if (path) return parent.getAbsolutePath();
+    return parent.getName();
+  }
+
+  /**
+   * Gets the extension of a file.
+   * @param {String} target - the filepath of the file to get the extension of
+   * @returns {String} the file extension, e.g., ".txt"
+   */
+
+  static getExtension(target) {
+    return "." + target.split(".").pop();
   }
 }
 
