@@ -1,6 +1,6 @@
 # Documentation
 
-## `class FileUtilities`
+# `class FileUtilities`
 
 The FileUtilities class has all of the features of the FileUtilities module.
 
@@ -182,7 +182,7 @@ Returns an array of subdirectories within a directory.
    * `target` — `String` — the filepath to list the directories from
  * **Returns:** `(String[] | Boolean)` — an array of directories in the target directory, or false if the target is not a directory
 
-## `static listFileAndDirectories(target)`
+## `static listFilesAndDirectories(target)`
 
 Returns an array of files and subdirectories within a directory.
 
@@ -356,3 +356,20 @@ Sets a file's creation time.
  * **Parameters:**
    * `target` — `String` — the filepath of the file to set the time
    * `time` — `Number` — the time to set creation (number of milliseconds since UNIX epoch)
+
+## `static getParentFolder(target, path)`
+
+Gets the folder that a file is in.
+
+ * **Parameters:**
+   * `target` — `String` — he filepath of the file to get the parent folder of
+   * `[path]` — `String` — whether to return the name (false) or full path (true) (defaults to false)
+ * **Returns:** `String` — the name of the parent folder
+
+## `static getExtension(target)`
+
+Gets the extension of a file.
+
+ * **Parameters:**
+   * `target` — `String` — the filepath of the file to get the extension of
+ * **Returns:** `String` — the file extension, e.g., "txt"
