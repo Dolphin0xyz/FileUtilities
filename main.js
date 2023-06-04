@@ -147,7 +147,7 @@ export default class FileUtilities {
    * @param {String} target - the filepath of the file to copy
    * @param {String} destination - the filepath to copy it to, including the name of the file
    * @param {Boolean} [replace] - whether or not to repalce existing files (defaults to false)
-   * @returns {Boolean} - if the operation succeeds
+   * @returns {Boolean} - false if the operation fails
    */
 
   static copyFile(target, destination, replace) {
