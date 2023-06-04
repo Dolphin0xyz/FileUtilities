@@ -2,6 +2,8 @@
 /// <reference lib="es2015" />
 // import FileUtilities from "..FileUtilities/main";
 
+import { Promise } from '../PromiseV2';
+
 const GZIPInputStream = Java.type("java.util.zip.GZIPInputStream");
 const GZIPOutputStream = Java.type("java.util.zip.GZIPOutputStream");
 const FileInputStream = Java.type("java.io.FileInputStream");
@@ -122,14 +124,11 @@ export default class FileUtilities {
 
   static delete(target) {
     new Thread(() => {
-      new File(target).listFiles().forEach(file => {
-        if (file.isDirectory()) {
-          FileUtilities.delete(file);
-        } else {
-          file.delete();
-        }
-      });
-      new File(target).delete();
+      if (FileUtilities.isDirectory(target)) {
+        FileLib.deleteDirectory(target);
+      } else {
+        FileLib.delete(target);
+      }
     }).start();
     return FileUtilities.exists(target);
   }
@@ -150,18 +149,24 @@ export default class FileUtilities {
    * @param {String} target - the filepath of the file to copy
    * @param {String} destination - the filepath to copy it to, including the name of the file
    * @param {Boolean} [replace] - whether or not to repalce existing files (defaults to false)
+   * @returns {Boolean} - if the operation succeeds
    */
 
   static copyFile(target, destination, replace) {
     new Thread(() => {
-      const d = new File(destination);
-      d.getParentFile().mkdirs();
-      const p = new File(target).toPath();
-      const q = new File(destination).toPath();
-      if (replace === true) {
-        Files.copy(p, q, StandardCopyOption.REPLACE_EXISTING);
-      } else {
-        Files.copy(p, q);
+      try {
+        const d = new File(destination);
+        d.getParentFile().mkdirs();
+        const p = new File(target).toPath();
+        const q = new File(destination).toPath();
+        if (replace === true) {
+          Files.copy(p, q, StandardCopyOption.REPLACE_EXISTING);
+        } else {
+          Files.copy(p, q);
+        }
+      } catch (e) {
+        console.log(e);
+        return false;
       }
     }).start();
   }
@@ -172,22 +177,28 @@ export default class FileUtilities {
    * @param {String} target - the filepath of the directory to copy
    * @param {String} destination - the filepath to copy it to, including the name of the directory
    * @param {Boolean} [replace] - whether or not to repalce existing files and directories (defaults to false)
+   * @returns {Boolean} - false if the operation fails
    */
 
   static copyDirectory(target, destination, replace) {
     new Thread(() => {
-      const d = new File(destination);
-      d.getParentFile().mkdirs();
-      const p = new File(target).toPath();
-      const q = new File(destination).toPath();
-      Files.walk(p).forEach(file => {
-        const f = q.resolve(p.relativize(file));
-        if (replace === true) {
-          Files.copy(file, f, StandardCopyOption.REPLACE_EXISTING);
-        } else {
-          Files.copy(file, f);
-        }
-      });
+      try {
+        const d = new File(destination);
+        d.getParentFile().mkdirs();
+        const p = new File(target).toPath();
+        const q = new File(destination).toPath();
+        Files.walk(p).forEach(file => {
+          const f = q.resolve(p.relativize(file));
+          if (replace === true) {
+            Files.copy(file, f, StandardCopyOption.REPLACE_EXISTING);
+          } else {
+            Files.copy(file, f);
+          }
+        });
+      } catch(e) {
+        console.log(e);
+        return false;
+      }
     }).start();
   }
 
@@ -217,13 +228,13 @@ export default class FileUtilities {
 
 
   /**
-   * Zips a file recursively to filepath.zip.
+   * Zips a folder recursively to filepath.zip.
    * @param {String} target - the filepath of the file to zip
    */
   
   static ZIP(target) {
     new Thread(() => {
-      const destination = target + ".zip"
+      const destination = file.getAbsolutePath() + ".zip";
       const d = new File(destination);
       d.getParentFile().mkdirs();
       const fileList = FileUtilities.listFilesRecursive(target);
@@ -729,11 +740,11 @@ export default class FileUtilities {
   /**
    * Gets the extension of a file.
    * @param {String} target - the filepath of the file to get the extension of
-   * @returns {String} the file extension, e.g., ".txt"
+   * @returns {String} the file extension, e.g., "txt"
    */
 
   static getExtension(target) {
-    return "." + target.split(".").pop();
+    return target.split(".").pop();
   }
 }
 
