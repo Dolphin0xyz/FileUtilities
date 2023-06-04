@@ -2,8 +2,6 @@
 /// <reference lib="es2015" />
 // import FileUtilities from "..FileUtilities/main";
 
-import { Promise } from '../PromiseV2';
-
 const GZIPInputStream = Java.type("java.util.zip.GZIPInputStream");
 const GZIPOutputStream = Java.type("java.util.zip.GZIPOutputStream");
 const FileInputStream = Java.type("java.io.FileInputStream");
