@@ -79,6 +79,7 @@ Copies a file from the target to the destination.
    * `target` — `String` — the filepath of the file to copy
    * `destination` — `String` — the filepath to copy it to, including the name of the file
    * `[replace]` — `Boolean` — whether or not to repalce existing files (defaults to false)
+ * **Returns:** `Boolean` — false if the operation fails
 
 ## `static copyDirectory(target, destination, replace)`
 
@@ -88,6 +89,7 @@ Copies a directory, any subdirectories, and any files from the target to the des
    * `target` — `String` — the filepath of the directory to copy
    * `destination` — `String` — the filepath to copy it to, including the name of the directory
    * `[replace]` — `Boolean` — whether or not to repalce existing files and directories (defaults to false)
+ * **Returns:** `Boolean` — false if the operation failss
 
 ## `static clearDirectory(target, onlyFiles)`
 
@@ -99,7 +101,7 @@ Deletes all files and directories in the target directory.
 
 ## `static ZIP(target)`
 
-Zips a file recursively to filepath.zip.
+Zips a folder recursively to filepath.zip.
 
  * **Parameters:** 
    * `target` — `String` — the filepath of the file to zip
